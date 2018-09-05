@@ -15,7 +15,7 @@ var POST = process.env.PORT || 8080;
 
 //ルートディレクトリにアクセスした時に動く処理
 app.get('/', function(req, res) {
-	//index.htmlに遷移する
+	//index.htmlに遷移する  
 	res.sendFile(__dirname + '/index.html');
 });
 
