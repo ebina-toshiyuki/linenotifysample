@@ -1,6 +1,18 @@
-var http = require('http'); //httpモジュール呼び出し
-http.createServer(function (request, response) {
-    // リクエストを受けると以下のレスポンスを送信する
-    response.writeHead(200, {'Content-Type': 'text/plain'}); //レスポンスヘッダーに書き込み
-    response.end('Hello World\n'); // レスポンスボディに書き込み＆レスポンス送信を完了する
-}).listen(process.env.PORT || 8080); //公開ポートで待ち受け
+var users = require('./app');
+var notify = require('./notify'); // ←追加
+
+var app = express();
+
+var router = express.Router();
+
+// 中略
+app.use('/app', app);
+app.use('/notify', notify); // ←追加
+
+// catch 404 and forward to error handler
+app.use(function(req, res, next) {});
+
+
+app.get('/', function(req, res, next) {
+  res.render('notify', { title: 'Express' });
+});
