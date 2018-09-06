@@ -22,7 +22,8 @@ app.get('/', function(req, res) {
 });
 
 app.get('/notifyToken', function(req, res) {
-    //index.htmlに遷移する  
+    
+    // トークンを取得するためのcodeとstateを取得
     var code = req.query.code;
     var state = req.query.state;
 	console.log('code', code);
@@ -30,18 +31,17 @@ app.get('/notifyToken', function(req, res) {
     if(state != "tenaga"){
         res.statusCode = '500';
         res.statusMessage = "不正";
-    }
-    
+    }    
 
     var webclient = require("request");
  
     webclient.post({
-      url: "https://notify-bot.line.me/oauth/token",
+      url: "https://notify-bot.line.me/oauth/token",//固定
       headers: {
-        "content-type": "application/x-www-form-urlencodedn"
+        "content-type": "application/x-www-form-urlencodedn"//固定
       },
       form: {
-        "grant_type": "authorization_code",
+        "grant_type": "authorization_code",//固定
         "code": code,　//authorization endpoint で取得したcode
         /* lineのアカウントで設定される値を使用する */
         "redirect_uri": "https://tenaga.herokuapp.com/notifyToken",
@@ -51,11 +51,40 @@ app.get('/notifyToken', function(req, res) {
       }
     }, function (error, response, body){
       console.log(body);
+      var htmltext ='<p>LINE NOTIFY に登録しました。</p>'
+            
+      var fs = require("fs");
+      var ejs = require("ejs");
+      var temp = fs.readFileSync(__dirname + "/notifyToken.ejs", "utf-8");
+      var page = ejs.render(temp, {
+        token:body.access_token,
+        status:body.status,
+        message:body.message
+      });
+      res.writeHead(200, {"Content-Type": "text/html"});
+      res.write(page);
+      res.end();
+
     });
 
-    res.sendFile(__dirname + '/notifyToken.html');
+    //res.sendFile(__dirname + '/notifyToken.html');
     
 });
+
+app.post('/sendline',function(){
+  const Line = require('./line');
+
+  const myLine = new Line();
+ 
+  var token = req.body.token;
+  var msg = req.body.msg;
+
+  // LINE Notify トークンセット
+  myLine.setToken(token);
+  // LINE Notify 実行（「こんにちは！」とメッセージを送る）
+  myLine.notify(msg);
+});
+
 http.listen(POST, function() {
 	console.log('接続開始：', POST);
 })
