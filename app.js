@@ -13,12 +13,19 @@ var http = require('http').Server(app);
 var POST = process.env.PORT || 8080;
 
 
+
 //ルートディレクトリにアクセスした時に動く処理
 app.get('/', function(req, res) {
 	//index.htmlに遷移する  
-	res.sendFile(__dirname + '/index.html');
+    res.sendFile(__dirname + '/index.html');
+    
 });
 
+app.get('/notifyToken', function(req, res) {
+	//index.htmlに遷移する  
+    res.sendFile(__dirname + '/notifyToken.html');
+    
+});
 http.listen(POST, function() {
 	console.log('接続開始：', POST);
 })
