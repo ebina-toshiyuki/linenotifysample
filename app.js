@@ -76,7 +76,8 @@ app.get('/notifyToken', function(req, res) {
 });
 
 app.post('/sendline',function(req, res){
-    
+  console.log(req);
+  console.log(res);
   console.log(req.body);
   const Line = require('./line');
   const myLine = new Line();
