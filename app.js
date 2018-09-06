@@ -89,7 +89,7 @@ app.post('/sendline',function(req, res){
   myLine.setToken(token);
   // LINE Notify 実行（「こんにちは！」とメッセージを送る）
   myLine.notify(msg);
-  res.end();
+  res.send('sendline');
 
 
 });
