@@ -83,6 +83,7 @@ app.post('/sendline',function(req, res){
   const myLine = new Line();
   var token = req.body.token;
   var msg = req.body.msg;
+  console.log("token:" + token);
 
   // LINE Notify トークンセット
   myLine.setToken(token);
