@@ -1,7 +1,11 @@
 <h1>LINE NOTIFYに登録しました</h1>
-<input type="text">
-<input type="button" value="lineに送信">
-<input type="hidden" value=<%= token %>>
-<%= status %>
-<%= message %>
-<%= token %>
+<form method="post" action="/sendline">
+  <input type="text">
+  <input type="button" value="lineに送信">
+  <input type="hidden" name="token" value=<%= token %>>
+</form>
+<table>
+  <tr><td>status:</td><td><%= status %></td></tr>
+  <tr><td>message:</td><td><%= message %></td></tr>
+  <tr><td>token:</td><td><%= token %></td></tr>
+</table>

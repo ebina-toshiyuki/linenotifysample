@@ -65,7 +65,7 @@ app.get('/notifyToken', function(req, res) {
         message:resjson.message
       });
       console.log(page);
-      res.writeHead(200, {"Content-Type": "text/html","charset":"utf-8"});
+      res.writeHead(200, {"Content-Type": "text/html;charset=utf-8"});
       res.write(page);
       res.end();
 
@@ -75,11 +75,11 @@ app.get('/notifyToken', function(req, res) {
     
 });
 
-app.post('/sendline',function(){
+app.post('/sendline',function(req, res){
+    
+  console.log(req.body);
   const Line = require('./line');
-
   const myLine = new Line();
- 
   var token = req.body.token;
   var msg = req.body.msg;
 
