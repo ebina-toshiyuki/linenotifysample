@@ -75,16 +75,16 @@ app.get('/notifyToken', function(req, res) {
     
 });
 
-app.post('/sendline',function(req, res){
+app.get('/sendline',function(req, res){
   var bodyParser = require('body-parser');
   app.use(bodyParser.urlencoded({extended: true}));
 
-  console.log(req.body);
+  console.log(req.query);
 
   const Line = require('./line');
   const myLine = new Line();
-  var token = req.body.token;
-  var msg = req.body.msg;
+  var token = req.query.token;
+  var msg = req.query.msg;
 
   // LINE Notify トークンセット
   myLine.setToken(token);
