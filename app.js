@@ -51,18 +51,20 @@ app.get('/notifyToken', function(req, res) {
       }
     }, function (error, response, body){
       console.log(body);
-      console.log(body.get("access_token"));
+      var resjson = JSON.parse(body);
+      
+      console.log(resjson.access_token);
       var htmltext ='<p>LINE NOTIFY に登録しました。</p>'
             
       var fs = require("fs");
       var ejs = require("ejs");
       var temp = fs.readFileSync(__dirname + "/notifyToken.ejs", "utf-8");
       var page = ejs.render(temp, {
-        token:body.access_token,
-        status:body.status,
-        message:body.message
+        token:resjson.access_token,
+        status:resjson.status,
+        message:resjson.message
       });
-      res.writeHead(200, {"Content-Type": "text/html"});
+      res.writeHead(200, {"Content-Type": "text/html","charset":"utf-8"});
       res.write(page);
       res.end();
 
