@@ -77,14 +77,12 @@ app.post('/notifyToken', function(req, res) {
     
 });
 
-app.get('/sendline',function(req, res){
-
-  console.log(req.query);
+app.post('/sendline',function(req, res){
 
   const Line = require('./line');
   const myLine = new Line();
-  var token = req.query.token;
-  var msg = req.query.msg;
+  var token = req.body.token;
+  var msg = req.body.msg;
 
   // LINE Notify トークンセット
   myLine.setToken(token);
