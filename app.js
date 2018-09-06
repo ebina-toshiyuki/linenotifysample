@@ -21,11 +21,11 @@ app.get('/', function(req, res) {
     
 });
 
-app.get('/notifyToken', function(req, res) {
+app.post('/notifyToken', function(req, res) {
     
     // トークンを取得するためのcodeとstateを取得
-    var code = req.query.code;
-    var state = req.query.state;
+    var code = req.body.code;
+    var state = req.body.state;
 	console.log('code', code);
 	console.log('state', state);
     if(state != "tenaga"){
