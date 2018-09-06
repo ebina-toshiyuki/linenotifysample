@@ -42,7 +42,7 @@ app.get('/notifyToken', function(req, res) {
       },
       form: {
         "grant_type": "authorization_code",
-        "code": state,
+        "code": code,　//authorization endpoint で取得したcode
         /* lineのアカウントで設定される値を使用する */
         "redirect_uri": "https://tenaga.herokuapp.com/notifyToken",
         "client_id": "a19ECgC23P5fCbz3RAj3Df",
