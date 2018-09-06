@@ -51,6 +51,7 @@ app.get('/notifyToken', function(req, res) {
       }
     }, function (error, response, body){
       console.log(body);
+      console.log(body.access_token);
       var htmltext ='<p>LINE NOTIFY に登録しました。</p>'
             
       var fs = require("fs");
