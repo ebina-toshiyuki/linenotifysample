@@ -1,5 +1,32 @@
 <html>
   <h1>LINE NOTIFYに登録しました</h1>
+  <head>
+      <script>
+          function execPost() {
+            // フォームの生成
+            var form = document.createElement("form");
+            form.setAttribute("action", "/sendline");
+            form.setAttribute("method", "post");
+            form.style.display = "none";
+            document.body.appendChild(form);
+            // パラメタの設定
+            var input = document.createElement('input');
+            input.setAttribute('type', 'hidden');
+            input.setAttribute('name', "msg");
+            var msg = document.getElementsByName("msg");
+            input.setAttribute('value', msg[0].value);
+            form.appendChild(input);
+            var input2 = document.createElement('input');
+            input2.setAttribute('type', 'hidden');
+            input2.setAttribute('name', "token");
+            var token = document.getElementsByName("token");
+            input2.setAttribute('value', token[0].value);
+            form.appendChild(input2);
+            // submit
+            form.submit();
+          }
+          </script>
+  </head>
   <body>
       <input type="text" name="msg">
       <input type="button" onlclick="execPost();" value="lineに送信">
@@ -10,29 +37,5 @@
       <tr><td>token:</td><td><%= token %></td></tr>
     </table>
   </body>
-  <script>
-  function execPost() {
-    // フォームの生成
-    var form = document.createElement("form");
-    form.setAttribute("action", "/sendline");
-    form.setAttribute("method", "post");
-    form.style.display = "none";
-    document.body.appendChild(form);
-    // パラメタの設定
-    var input = document.createElement('input');
-    input.setAttribute('type', 'hidden');
-    input.setAttribute('name', "msg");
-    var msg = document.getElementsByName("msg");
-    input.setAttribute('value', msg[0].value);
-    form.appendChild(input);
-    var input2 = document.createElement('input');
-    input2.setAttribute('type', 'hidden');
-    input2.setAttribute('name', "token");
-    var token = document.getElementsByName("token");
-    input2.setAttribute('value', token[0].value);
-    form.appendChild(input2);
-    // submit
-    form.submit();
-  }
-  </script>
+ 
 </html>
