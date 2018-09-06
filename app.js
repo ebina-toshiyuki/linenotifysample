@@ -13,6 +13,8 @@ var http = require('http').Server(app);
 var POST = process.env.PORT || 8080;
 
 
+var bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({extended: true}));
 
 //ルートディレクトリにアクセスした時に動く処理
 app.get('/', function(req, res) {
@@ -76,8 +78,6 @@ app.post('/notifyToken', function(req, res) {
 });
 
 app.get('/sendline',function(req, res){
-  var bodyParser = require('body-parser');
-  app.use(bodyParser.urlencoded({extended: true}));
 
   console.log(req.query);
 
