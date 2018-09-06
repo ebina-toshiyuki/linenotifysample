@@ -23,8 +23,8 @@ app.get('/', function(req, res) {
 
 app.get('/notifyToken', function(req, res) {
     //index.htmlに遷移する  
-    var code = req.body.code;
-    var state = req.body.state;
+    var code = req.query.code;
+    var state = req.query.state;
 	console.log('code', code);
 	console.log('state', state);
     if(state != "tenaga"){
