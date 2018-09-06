@@ -64,6 +64,7 @@ app.get('/notifyToken', function(req, res) {
         status:resjson.status,
         message:resjson.message
       });
+      console.log(page);
       res.writeHead(200, {"Content-Type": "text/html","charset":"utf-8"});
       res.write(page);
       res.end();
