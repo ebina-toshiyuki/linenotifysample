@@ -31,6 +31,28 @@ app.get('/notifyToken', function(req, res) {
         res.statusCode = '500';
         res.statusMessage = "不正";
     }
+    
+
+    var webclient = require("request");
+ 
+    webclient.post({
+      url: "https://notify-bot.line.me/oauth/token",
+      headers: {
+        "content-type": "application/x-www-form-urlencodedn"
+      },
+      form: {
+        "grant_type": "authorization_code",
+        "code": state,
+        /* lineのアカウントで設定される値を使用する */
+        "redirect_uri": "https://tenaga.herokuapp.com/notifyToken",
+        "client_id": "a19ECgC23P5fCbz3RAj3Df",
+        "client_secret": "kqhb5THngQg1IC0j1TmqOV8D2ugJqzr5LH5EcRzh5eG"
+        /* lineのアカウントで設定される値を使用する */
+      }
+    }, function (error, response, body){
+      console.log(body);
+    });
+
     res.sendFile(__dirname + '/notifyToken.html');
     
 });
