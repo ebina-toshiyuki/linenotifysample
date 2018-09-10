@@ -1,3 +1,4 @@
+/* 【API】Line Notify送信クラス */
 const axios = require('axios');
 const querystring = require('querystring');
  

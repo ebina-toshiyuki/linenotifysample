@@ -1,11 +1,5 @@
 /*
-var http = require('http'); //httpモジュール呼び出し
-http.createServer(function (request, response) {
-    // リクエストを受けると以下のレスポンスを送信する
-    response.writeHead(200, {'Content-Type': 'text/plain'}); //レスポンスヘッダーに書き込み
-    response.end('Hello World\n'); // レスポンスボディに書き込み＆レスポンス送信を完了する
-}).listen(process.env.PORT || 8080); //公開ポートで待ち受け
-
+  Line Notifyサンプル
 */
 var express = require('express');
 var app = express();
@@ -16,20 +10,25 @@ var POST = process.env.PORT || 8080;
 var bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({extended: true}));
 
-//ルートディレクトリにアクセスした時に動く処理
+//フロント側の連携設定画面を想定
 app.get('/', function(req, res) {
 	//index.htmlに遷移する  
     res.sendFile(__dirname + '/index.html');
     
 });
 
+/**
+ * 【API】バックエンドのAPIを想定
+ * アカウントごとのトークンを取得して、アカウントテーブルに保存
+*/
 app.post('/notifyToken', function(req, res) {
     
     // トークンを取得するためのcodeとstateを取得
     var code = req.body.code;
     var state = req.body.state;
 	console.log('code', code);
-	console.log('state', state);
+  console.log('state', state);
+  // stateとの比較を行う（運営者の情報をtableで保持）　lineアカウントで任意の文字列を設定
     if(state != "tenaga"){
         res.statusCode = '500';
         res.statusMessage = "不正";
@@ -52,6 +51,11 @@ app.post('/notifyToken', function(req, res) {
         /* lineのアカウントで設定される値を使用する */
       }
     }, function (error, response, body){
+
+      /**
+       * 以下は、デモのため画面に出力しているが、
+       * 本来は、完了のメッセージのみでトークンは、アカウントテーブルに登録する
+       */
       console.log(body);
       var resjson = JSON.parse(body);
       
@@ -77,8 +81,15 @@ app.post('/notifyToken', function(req, res) {
     
 });
 
+
+/**
+ * 【API】line通知の呼び出しサンプル
+*/
 app.post('/sendline',function(req, res){
 
+  /**
+   * 本来は、アカウントテーブルからトークンを取得し送信
+  */
   const Line = require('./line');
   const myLine = new Line();
   var token = req.body.token;
@@ -87,7 +98,7 @@ app.post('/sendline',function(req, res){
 
   // LINE Notify トークンセット
   myLine.setToken(token);
-  // LINE Notify 実行（「こんにちは！」とメッセージを送る）
+  // LINE Notify 実行（メッセージを送る）
   myLine.notify(msg);
   res.send('sendline');
 
