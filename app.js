@@ -105,6 +105,68 @@ app.post('/sendline',function(req, res){
 
 });
 
+
+/** stripe---------------------------------------------------------- */
+var stripe = require('stripe')("pk_test_KuatL0cUow9VDmV6NTxqDUI7");
+var userData = {ID: '', email: 'customer@example.com', card: {ID: '', last4: ''}};
+var cardParams = {
+    card: {
+        exp_month: 10,
+        exp_year: 2018,
+        number: '4242424242424242',
+        cvc: 100
+    }
+};
+
+app.post('/stripeCreateCus',function(req, res){
+  // stripe customer の存在チェック
+  stripe.customers.retrieve(userData.id, function(err, customer) {
+      if (!customer || customer.deleted) {
+          // stripe customer が存在しない時は stripe にcustomerを登録
+          var params = {
+              email: userData.email
+          };
+          stripe.customers.create(params, function(err,customer){
+              userData.ID = customer.id;
+              console.log(customer);
+          });
+      }
+  });
+});
+
+// カードの存在チェック
+stripe.customers.retrieveCard(userData.ID, userData.card.ID, function(err, card){
+  if (!card || card.deleted) {
+      // カードが登録されていなければ token を作ってから、customers.createSource() で登録
+      stripe.tokens.create(cardParams, function(err,token){
+          userData.card.ID = token.card.id;
+          userData.card.last4 = token.card.last4;
+
+          var params = {
+              source: token.id
+          };
+          stripe.customers.createSource(userData.ID, params, function(err, card){
+              console.log(card);
+          });
+      });
+  } else {
+      // カードが登録されていたら有効期限を更新
+      userData.card.ID = card.id;
+      userData.card.last4 = card.last4;
+
+      var params = {
+          exp_month: cardParams.card.exp_month,
+          exp_year: cardParams.card.exp_year
+      }
+      stripe.customers.updateCard(userData.ID, card.id, params, function(err, card){
+          console.log(card);
+      });
+  }
+});
+
+/** stripe---------------------------------------------------------- */
+
+
 http.listen(POST, function() {
 	console.log('接続開始：', POST);
 })
