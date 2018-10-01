@@ -11,16 +11,16 @@
             // document.body.appendChild(form);
             // // submit
             // form.submit();
-            $.ajax({
-            url: "/stripeCreateCus",
-            type:'POST',
-            data : { },
-            timeout:3000,
-        }).done(function(data) {
-                          alert("ok");
-        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
-                         alert("error");
-        })
+
+            var xhr = new XMLHttpRequest();
+            
+            xhr.open("post", "stripeCreateCus");
+            xhr.send();
+            
+            xhr.onreadystatechange = function() {
+            
+              
+            }
           }
 
           function invoice() {
