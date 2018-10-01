@@ -143,6 +143,7 @@ app.post('/stripeCreateCus',function(req, res){
                     stripeData.id = customer.id;
                     console.log(err);
                     console.log(customer);
+                    setCard();
                 }
                 
             });
