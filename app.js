@@ -127,7 +127,7 @@ app.post('/stripeCreateCus',function(req, res){
               email: userData.email
           };
           stripe.customers.create(params, function(err,customer){
-              userData.ID = customer.id;
+              userData.id = customer.id;
               console.log(customer);
           });
       }
@@ -135,7 +135,7 @@ app.post('/stripeCreateCus',function(req, res){
 });
 
 // カードの存在チェック
-stripe.customers.retrieveCard(userData.ID, userData.card.ID, function(err, card){
+stripe.customers.retrieveCard(userData.id, userData.card.ID, function(err, card){
   if (!card || card.deleted) {
       // カードが登録されていなければ token を作ってから、customers.createSource() で登録
       stripe.tokens.create(cardParams, function(err,token){
@@ -145,7 +145,7 @@ stripe.customers.retrieveCard(userData.ID, userData.card.ID, function(err, card)
           var params = {
               source: token.id
           };
-          stripe.customers.createSource(userData.ID, params, function(err, card){
+          stripe.customers.createSource(userData.id, params, function(err, card){
               console.log(card);
           });
       });
