@@ -2,7 +2,7 @@
   <h1>ストライプ　課金</h1>
   <head>
       <script>
-          function execPost() {
+          function createCus() {
             // フォームの生成
             var form = document.createElement("form");
             form.setAttribute("action", "/stripeCreateCus");
@@ -13,10 +13,10 @@
             form.submit();
           }
 
-          function execPost() {
+          function invoice() {
             // フォームの生成
             var form = document.createElement("form");
-            form.setAttribute("action", "/stripeCreateCus");
+            form.setAttribute("action", "/invoice");
             form.setAttribute("method", "post");
             form.style.display = "none";
             document.body.appendChild(form);
@@ -26,7 +26,8 @@
           </script>
   </head>
   <body>
-      <input type="button" onclick="execPost();return false;" value="顧客・カード登録">
+      <input type="button" onclick="createCus();return false;" value="顧客・カード登録">
+      <input type="button" onclick="invoice();return false;" value="請求">
     <table>
       <tr><td>customer:</td><td id="customer" ></td></tr>
     </table>
