@@ -117,7 +117,18 @@ var cardParams = {
         cvc: 100
     }
 };
-var stripeData = {id:'99999 ',card: {ID: '', last4: ''}}
+var stripeData = {id:'',card: {ID: '', last4: ''}}
+
+app.get('/stripeCreateCus',function(req, res){
+    var fs = require("fs");
+    var ejs = require("ejs");
+    var temp = fs.readFileSync(__dirname + "/stripeInvoice.ejs", "utf-8");
+    var page = ejs.render(temp, { });
+    console.log(page);
+    res.writeHead(200, {"Content-Type": "text/html;charset=utf-8"});
+    res.write(page);
+    res.end();
+});
 
 app.post('/stripeCreateCus',function(req, res){
 
@@ -143,12 +154,14 @@ app.post('/stripeCreateCus',function(req, res){
                     stripeData.id = customer.id;
                     console.log(err);
                     console.log(customer);
+                    // card登録
                     setCard();
                 }
                 
             });
         }
     });
+
 });
 function setCard(){
     // カードの存在チェック

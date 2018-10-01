@@ -1,0 +1,37 @@
+<html>
+  <h1>ストライプ　課金</h1>
+  <head>
+      <script>
+          function execPost() {
+            // フォームの生成
+            var form = document.createElement("form");
+            form.setAttribute("action", "/stripeCreateCus");
+            form.setAttribute("method", "post");
+            form.style.display = "none";
+            document.body.appendChild(form);
+            // submit
+            form.submit();
+          }
+
+          function execPost() {
+            // フォームの生成
+            var form = document.createElement("form");
+            form.setAttribute("action", "/stripeCreateCus");
+            form.setAttribute("method", "post");
+            form.style.display = "none";
+            document.body.appendChild(form);
+            // submit
+            form.submit();
+          }
+          </script>
+  </head>
+  <body>
+      <input type="button" onclick="execPost();return false;" value="顧客・カード登録">
+    <table>
+      <tr><td>customer:</td><td><%= customer %></td></tr>
+      <tr><td>message:</td><td><%= message %></td></tr>
+      <tr><td>token:</td><td><%= token %></td></tr>
+    </table>
+  </body>
+ 
+</html>
