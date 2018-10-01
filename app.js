@@ -145,6 +145,7 @@ app.post('/stripeCreateCus',function(req, res){
                         stripe.tokens.create(cardParams, function(err,token){
                             console.log("tokens.create err:"+err);
                             console.log("tokens.create token:"+token);
+                            console.log("token.id:"+ token.id);
                             
                             //userData.card.ID = token.card.id;
                             //userData.card.last4 = token.card.last4;
@@ -160,7 +161,7 @@ app.post('/stripeCreateCus',function(req, res){
                         // カードが登録されていたら有効期限を更新
                         userData.card.ID = card.id;
                         userData.card.last4 = card.last4;
-                
+                        
                         var params = {
                             exp_month: cardParams.card.exp_month,
                             exp_year: cardParams.card.exp_year
