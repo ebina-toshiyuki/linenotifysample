@@ -194,7 +194,7 @@ function setCard(){
             source: token.id
         };
         //　card登録
-        stripe.customers.createSource(customer.id, params, function(err, card){
+        stripe.customers.createSource(stripeData.id, params, function(err, card){
             console.log(card);
         });
     });
@@ -208,7 +208,7 @@ function updCard(){
         exp_month: "10",
         exp_year: "2025"
     }
-    stripe.customers.updateCard(stripeData.ID, card.id, params, function(err, card){
+    stripe.customers.updateCard(stripeData.id, card.id, params, function(err, card){
         console.log(card);
     });
 }
