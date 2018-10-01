@@ -119,7 +119,6 @@ var cardParams = {
 };
 var stripeData = {id:"",card: {ID: '', last4: ''}}
 
-
 app.post('/stripeCreateCus',function(req, res){
 
     // stripe customer の存在チェック
