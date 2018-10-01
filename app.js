@@ -173,7 +173,7 @@ app.post('/invoice',function(req, res){
     };
     
     stripe.invoices.create(params2, function(err,invoice){
-        cosole.log(invoice);
+        console.log(invoice);
         if (!err) {
             stripe.invoices.pay(invoice.id, function(err,invoice){
                 console.log(invoice);
