@@ -142,6 +142,9 @@ app.post('/stripeCreateCus',function(req, res){
         if (!card || card.deleted) {
             // カードが登録されていなければ token を作ってから、customers.createSource() で登録
             stripe.tokens.create(cardParams, function(err,token){
+                console.log(err);
+                console.log(token);
+                
                 userData.card.ID = token.card.id;
                 userData.card.last4 = token.card.last4;
     
