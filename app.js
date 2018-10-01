@@ -108,7 +108,7 @@ app.post('/sendline',function(req, res){
 
 /** stripe---------------------------------------------------------- */
 var stripe = require('stripe')("sk_test_z5wdYYDUsr9O5gcF7Iw12xGl");
-var userData = {id: '', email: 'customer2@example.com', card: {ID: '', last4: ''}};
+var userData = {id: '', email: 'customer3@example.com', card: {ID: '', last4: ''}};
 var cardParams = {
     card: {
         exp_month: 10,
@@ -130,7 +130,7 @@ app.post('/stripeCreateCus',function(req, res){
             };
             console.log(customer);
             stripe.customers.create(params, function(err,customer){
-                //userData.id = customer.id;
+                this.userData.id = customer.id;
                 console.log(err);
                 console.log(customer);
             });
@@ -145,8 +145,8 @@ app.post('/stripeCreateCus',function(req, res){
                 console.log(err);
                 console.log(token);
                 
-                userData.card.ID = token.card.id;
-                userData.card.last4 = token.card.last4;
+                this.userData.card.ID = token.card.id;
+                this.userData.card.last4 = token.card.last4;
     
                 var params = {
                     source: token.id
