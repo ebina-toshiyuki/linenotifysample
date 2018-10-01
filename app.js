@@ -126,7 +126,7 @@ app.post('/stripeCreateCus',function(req, res){
     stripe.customers.retrieve(stripeData.id, function(err, customer) {
         if(err != null){
             // 存在チェックエラー
-            lonsole.log("err:",err);
+            console.log("err:",err);
         }else{
             // 存在しないので顧客新規作成
             if (!customer || customer.deleted) {
@@ -139,7 +139,7 @@ app.post('/stripeCreateCus',function(req, res){
                 stripe.customers.create(params, function(err,customer){
                     if(err != null){
                         // 顧客作成エラー
-                        lonsole.log("err:",err);
+                        console.log("err:",err);
                     }else{
                         stripeData.id = customer.id;
                         console.log(err);
@@ -156,7 +156,7 @@ function setCard(){
     stripe.customers.retrieveCard(stripeData.id, stripeData.card.ID, function(err, card){
         if(err != null){
             // 顧客作成エラー
-            lonsole.log("err:",err);
+            console.log("err:",err);
         }else{
             if (!card || card.deleted) {
                 // カードが登録されていなければ token を作ってから、customers.createSource() で登録
