@@ -124,6 +124,7 @@ var jsonData = {id:""}
 app.post('/stripeCreateCus',function(req, res){
 
     jsonData.id = "aaaa";
+    console.log("jsonData.id:"+jsonData.id);
     console.log("email:"+userData.email);
     console.log("id:"+userData.id);
     console.log("stripeCreateCus");
