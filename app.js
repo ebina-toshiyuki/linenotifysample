@@ -117,7 +117,7 @@ var cardParams = {
         cvc: 100
     }
 };
-var stripeData = {id:'',card: {ID: '', last4: ''}}
+var stripeData = {id:'99999',card: {ID: '', last4: ''}}
 
 app.post('/stripeCreateCus',function(req, res){
 
