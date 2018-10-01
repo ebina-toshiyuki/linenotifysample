@@ -121,7 +121,7 @@ var cardParams = {
 
 
 app.post('/stripeCreateCus',function(req, res){
-    console.log(userData);
+    console.log("email:"+userData.email);
     console.log("stripeCreateCus");
     // stripe customer の存在チェック
     stripe.customers.retrieve(userData.id, function(err, customer) {
@@ -133,7 +133,7 @@ app.post('/stripeCreateCus',function(req, res){
             };
             console.log(customer);
             stripe.customers.create(params, function(err,customer){
-                //this.userData.id = customer.id;
+                //userData.id = customer.id;
                 console.log(err);
                 console.log(customer);
             });
@@ -148,8 +148,8 @@ app.post('/stripeCreateCus',function(req, res){
                 console.log(err);
                 console.log(token);
                 
-                this.userData.card.ID = token.card.id;
-                this.userData.card.last4 = token.card.last4;
+                userData.card.ID = token.card.id;
+                userData.card.last4 = token.card.last4;
     
                 var params = {
                     source: token.id
