@@ -4,13 +4,23 @@
       <script>
           function createCus() {
             // フォームの生成
-            var form = document.createElement("form");
-            form.setAttribute("action", "/stripeCreateCus");
-            form.setAttribute("method", "post");
-            form.style.display = "none";
-            document.body.appendChild(form);
-            // submit
-            form.submit();
+            // var form = document.createElement("form");
+            // form.setAttribute("action", "/stripeCreateCus");
+            // form.setAttribute("method", "post");
+            // form.style.display = "none";
+            // document.body.appendChild(form);
+            // // submit
+            // form.submit();
+            $.ajax({
+            url: "/stripeCreateCus",
+            type:'POST',
+            data : { },
+            timeout:3000,
+        }).done(function(data) {
+                          alert("ok");
+        }).fail(function(XMLHttpRequest, textStatus, errorThrown) {
+                         alert("error");
+        })
           }
 
           function invoice() {
