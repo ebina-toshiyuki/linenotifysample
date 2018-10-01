@@ -151,6 +151,8 @@ app.post('/stripeCreateCus',function(req, res){
             setCard();
         }
     });
+    res.writeHead(200, {"Content-Type": "text/html;charset=utf-8"});
+    res.end();
 });
 
 
@@ -162,7 +164,7 @@ app.post('/invoice',function(req, res){
         description: "お品代"
     };
     
-    stripe.invoiceItems.create(parms, function(err,invoiceItem){
+    stripe.invoiceItems.create(params, function(err,invoiceItem){
         cosole.log(invoiceItem);
     });
     var params2 = {
