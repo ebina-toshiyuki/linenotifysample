@@ -165,7 +165,7 @@ app.post('/invoice',function(req, res){
     };
     
     stripe.invoiceItems.create(params, function(err,invoiceItem){
-        cosole.log(invoiceItem);
+        console.log(invoiceItem);
     });
     var params2 = {
         customer: stripeData.id,
@@ -176,7 +176,7 @@ app.post('/invoice',function(req, res){
         cosole.log(invoice);
         if (!err) {
             stripe.invoices.pay(invoice.id, function(err,invoice){
-                cosole.log(invoice);
+                console.log(invoice);
             });
         }
     });

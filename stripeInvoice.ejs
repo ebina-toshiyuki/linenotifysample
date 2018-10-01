@@ -3,35 +3,19 @@
   <head>
       <script>
           function createCus() {
-            // フォームの生成
-            // var form = document.createElement("form");
-            // form.setAttribute("action", "/stripeCreateCus");
-            // form.setAttribute("method", "post");
-            // form.style.display = "none";
-            // document.body.appendChild(form);
-            // // submit
-            // form.submit();
-
             var xhr = new XMLHttpRequest();
-            
             xhr.open("post", "stripeCreateCus");
             xhr.send();
-            
             xhr.onreadystatechange = function() {
-            
-              
             }
           }
 
           function invoice() {
-            // フォームの生成
-            var form = document.createElement("form");
-            form.setAttribute("action", "/invoice");
-            form.setAttribute("method", "post");
-            form.style.display = "none";
-            document.body.appendChild(form);
-            // submit
-            form.submit();
+            var xhr = new XMLHttpRequest();
+            xhr.open("post", "invoice");
+            xhr.send();
+            xhr.onreadystatechange = function() {
+            }
           }
           </script>
   </head>
