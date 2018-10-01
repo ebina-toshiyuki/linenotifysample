@@ -108,7 +108,7 @@ app.post('/sendline',function(req, res){
 
 /** stripe---------------------------------------------------------- */
 var stripe = require('stripe')("sk_test_z5wdYYDUsr9O5gcF7Iw12xGl");
-var userData = {id: '', email: 'customer3@example.com', card: {ID: '', last4: ''}};
+var userData = {acountid: "123123123", email: 'customer3@example.com'};
 var cardParams = {
     card: {
         exp_month: 10,
@@ -117,70 +117,80 @@ var cardParams = {
         cvc: 100
     }
 };
-var jsonData = {id:""}
-
+var stripeData = {id:"",card: {ID: '', last4: ''}}
 
 
 app.post('/stripeCreateCus',function(req, res){
 
-    
-    console.log("email:"+userData.email);
-    console.log("id:"+userData.id);
-    console.log("stripeCreateCus");
     // stripe customer の存在チェック
-    stripe.customers.retrieve(userData.id, function(err, customer) {
-        jsonData.id = "aaaa";
-    console.log("jsonData.id:"+jsonData.id);
-        if (!customer || customer.deleted) {
-            // stripe customer が存在しない時は stripe にcustomerを登録
-            var params = {
-                email: userData.email,
-                description:"acountid:" + "123456789"
-            };
-            console.log(customer);
-            stripe.customers.create(params, function(err,customer){
-                //userData.id = customer.id;
-                console.log(err);
-                console.log(customer);
+    stripe.customers.retrieve(stripeData.id, function(err, customer) {
+        if(err != null){
+            // 存在チェックエラー
+            lonsole.log("err:",err);
+        }else{
+            // 存在しないので顧客新規作成
+            if (!customer || customer.deleted) {
+                // stripe customer が存在しない時は stripe にcustomerを登録
+                var params = {
+                    email: userData.email,
+                    description:"acountid:" + userData.acountid
+                };
 
-                // カードの存在チェック
-                stripe.customers.retrieveCard(customer.id, userData.card.ID, function(err, card){
-                    if (!card || card.deleted) {
-                        // カードが登録されていなければ token を作ってから、customers.createSource() で登録
-                        stripe.tokens.create(cardParams, function(err,token){
-                            console.log("tokens.create err:"+err);
-                            console.log("tokens.create token:"+token);
-                            console.log("token.id:"+ token.id);
-                            
-                            //userData.card.ID = token.card.id;
-                            //userData.card.last4 = token.card.last4;
-                
-                            var params = {
-                                source: token.id
-                            };
-                            stripe.customers.createSource(customer.id, params, function(err, card){
-                                console.log(card);
-                            });
-                        });
-                    } else {
-                        // カードが登録されていたら有効期限を更新
-                        userData.card.ID = card.id;
-                        userData.card.last4 = card.last4;
-                        
-                        var params = {
-                            exp_month: cardParams.card.exp_month,
-                            exp_year: cardParams.card.exp_year
-                        }
-                        stripe.customers.updateCard(userData.ID, card.id, params, function(err, card){
-                            console.log(card);
-                        });
+                stripe.customers.create(params, function(err,customer){
+                    if(err != null){
+                        // 顧客作成エラー
+                        lonsole.log("err:",err);
+                    }else{
+                        stripeData.id = customer.id;
+                        console.log(err);
+                        console.log(customer);
                     }
+                    
                 });
-            });
+            }
         }
     });
 });
+function setCard(){
+    // カードの存在チェック
+    stripe.customers.retrieveCard(stripeData.id, stripeData.card.ID, function(err, card){
+        if(err != null){
+            // 顧客作成エラー
+            lonsole.log("err:",err);
+        }else{
+            if (!card || card.deleted) {
+                // カードが登録されていなければ token を作ってから、customers.createSource() で登録
+                stripe.tokens.create(cardParams, function(err,token){
+                    console.log("tokens.create err:"+err);
+                    console.log("tokens.create token:"+token);
+                    console.log("token.id:"+ token.id);
+                    
+                    stripeData.card.ID = token.card.id;
+                    stripeData.card.last4 = token.card.last4;
 
+                    var params = {
+                        source: token.id
+                    };
+                    stripe.customers.createSource(customer.id, params, function(err, card){
+                        console.log(card);
+                    });
+                });
+            } else {
+                // カードが登録されていたら有効期限を更新
+                stripeData.card.ID = card.id;
+                stripeData.card.last4 = card.last4;
+                
+                var params = {
+                    exp_month: cardParams.card.exp_month,
+                    exp_year: cardParams.card.exp_year
+                }
+                stripe.customers.updateCard(stripeData.ID, card.id, params, function(err, card){
+                    console.log(card);
+                });
+            }
+        }
+    });
+}
 /** stripe---------------------------------------------------------- */
 
 
