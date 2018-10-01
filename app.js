@@ -129,7 +129,7 @@ app.post('/stripeCreateCus',function(req, res){
             };
             console.log(customer);
             stripe.customers.create(params, function(err,customer){
-                userData.id = customer.id;
+                //userData.id = customer.id;
                 console.log(customer);
             });
         }
