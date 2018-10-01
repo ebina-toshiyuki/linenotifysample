@@ -108,7 +108,7 @@ app.post('/sendline',function(req, res){
 
 /** stripe---------------------------------------------------------- */
 var stripe = require('stripe')("pk_test_KuatL0cUow9VDmV6NTxqDUI7");
-var userData = {ID: '', email: 'customer@example.com', card: {ID: '', last4: ''}};
+var userData = {id: '', email: 'customer@example.com', card: {ID: '', last4: ''}};
 var cardParams = {
     card: {
         exp_month: 10,
