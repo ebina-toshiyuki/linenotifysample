@@ -117,7 +117,7 @@ var cardParams = {
         cvc: 100
     }
 };
-var stripeData = {id:'99999',card: {ID: '', last4: ''}}
+var stripeData = {id:'99999 ',card: {ID: '', last4: ''}}
 
 app.post('/stripeCreateCus',function(req, res){
 
@@ -126,27 +126,26 @@ app.post('/stripeCreateCus',function(req, res){
         if(err != null){
             // 存在チェックエラー
             console.log("err:",err);
-        }else{
-            // 存在しないので顧客新規作成
-            if (!customer || customer.deleted) {
-                // stripe customer が存在しない時は stripe にcustomerを登録
-                var params = {
-                    email: userData.email,
-                    description:"acountid:" + userData.acountid
-                };
+        }
+        // 存在しないので顧客新規作成
+        if (!customer || customer.deleted) {
+            // stripe customer が存在しない時は stripe にcustomerを登録
+            var params = {
+                email: userData.email,
+                description:"acountid:" + userData.acountid
+            };
 
-                stripe.customers.create(params, function(err,customer){
-                    if(err != null){
-                        // 顧客作成エラー
-                        console.log("err:",err);
-                    }else{
-                        stripeData.id = customer.id;
-                        console.log(err);
-                        console.log(customer);
-                    }
-                    
-                });
-            }
+            stripe.customers.create(params, function(err,customer){
+                if(err != null){
+                    // 顧客作成エラー
+                    console.log("err:",err);
+                }else{
+                    stripeData.id = customer.id;
+                    console.log(err);
+                    console.log(customer);
+                }
+                
+            });
         }
     });
 });
