@@ -135,7 +135,7 @@ app.post('/stripeCreateCus',function(req, res){
     // stripe にcustomerを登録
     var params = {
         // ユーザ情報より設定
-        email: userData.email,
+        email: req.body.email,
         description:"acountid:" + userData.acountid
     };
 
