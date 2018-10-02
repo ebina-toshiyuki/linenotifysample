@@ -7,7 +7,8 @@
             var xhr = new XMLHttpRequest();
             xhr.open("post", "stripeCreateCus");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("email="+document.getElementById("email").value);
+            var mail = document.getElementById("email").value;
+            xhr.send("email="+mail);
             xhr.onreadystatechange = function() {
               document.getElementById("customer").value = this.responseText;
             }
