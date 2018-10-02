@@ -152,7 +152,6 @@ app.post('/stripeCreateCus',function(req, res){
         }
     });
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
-   
     res.end(stripeData.id );
 });
 
@@ -162,7 +161,8 @@ app.post('/invoice',function(req, res){
         customer: stripeData.id,
         amount: 1500,
         currency: 'jpy',
-        description: "お品代"
+        description: "お品代",
+
     };
     
     stripe.invoiceItems.create(params, function(err,invoiceItem){
@@ -181,6 +181,17 @@ app.post('/invoice',function(req, res){
             });
         }
     });
+
+    stripe.charges.create({
+        amount: 2000,
+        currency: "jpy",
+        source: "tok_visa", // obtained with Stripe.js
+        description: "Charge for jenny.rosen@example.com"
+      }, function(err, charge) {
+        // asynchronously called
+      });
+    res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+    res.end();
 });
 
 function setCard(){
