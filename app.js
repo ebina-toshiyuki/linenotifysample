@@ -170,8 +170,7 @@ app.post('/invoice',function(req, res){
     });
     var params2 = {
         customer: stripeData.id,
-        tax_percent: 8.0,
-        billing:"charge_automatically"
+        tax_percent: 8.0
     };
     
     stripe.invoices.create(params2, function(err,invoice){
