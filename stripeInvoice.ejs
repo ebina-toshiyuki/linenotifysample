@@ -1,30 +1,32 @@
 <html>
-  <h1>ストライプ　課金</h1>
+  <h1>stripe　sample</h1>
   <head>
+    <title>stripe　sample</title>
       <script>
           function createCus() {
             var xhr = new XMLHttpRequest();
             xhr.open("post", "stripeCreateCus");
-            xhr.send();
-            xhr.onreadystatechange = function() {
-            }
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("email="+document.getElementById("email").value);
+            xhr.onreadystatechange = function() {}
           }
 
           function invoice() {
             var xhr = new XMLHttpRequest();
             xhr.open("post", "invoice");
-            xhr.send();
-            xhr.onreadystatechange = function() {
-            }
+            xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+            xhr.send("customer="+document.getElementById("customer").value);
+            xhr.onreadystatechange = function() {}
           }
-          </script>
+      </script>
   </head>
   <body>
+      email:<input type="text" id="email">
       <input type="button" onclick="createCus();return false;" value="顧客・カード登録">
+      <br>
+      customer:<input type="text" id="customer">
+      <br>
       <input type="button" onclick="invoice();return false;" value="請求">
-    <table>
-      <tr><td>customer:</td><td id="customer" ></td></tr>
-    </table>
+
   </body>
- 
 </html>
