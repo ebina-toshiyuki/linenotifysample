@@ -151,9 +151,9 @@ app.post('/stripeCreateCus',function(req, res){
             setCard();
         }
     });
-    res.header('Content-Type', 'text/plain;charset=utf-8');
+    res.header(200,'Content-Type', 'text/plain;charset=utf-8');
    
-    res.end('GET承り太郎');
+    res.end(stripeData.id );
 });
 
 
