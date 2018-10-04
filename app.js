@@ -144,16 +144,20 @@ app.post('/stripeCreateCus',function(req, res){
         if(err != null){
             // 顧客作成エラー
             console.log("err:",err);
+            res.header(500,'Content-Type', 'text/plain;charset=utf-8');
+            res.end();
         }else{
             stripeData.id = customer.id;
             console.log(err);
             console.log(customer);
             // card登録
             setCard();
+
+            res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+            res.end(stripeData.id );
         }
     });
-    res.header(200,'Content-Type', 'text/plain;charset=utf-8');
-    res.end(stripeData.id );
+    
 });
 
 
@@ -188,12 +192,10 @@ app.post('/invoice',function(req, res){
         currency: "jpy",
         description: "お品代として",
         receipt_email :userData.email,
-        customer:stripeData.id
+        customer:stripeData.id,
+        captured: "true"//即時徴収
       }, function(err, charge) {
-        console.log("stripe.charges.capture");
-        stripe.charges.capture(charge.id, function(err, charge) {
-            // asynchronously called
-          });
+        console.log("徴収成功");
       });
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
