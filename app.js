@@ -162,47 +162,47 @@ app.post('/stripeCreateCus',function(req, res){
 
 app.post('/invoice',function(req, res){
 
-    var params = {
-        customer: req.body.customer,
-        amount: 1500,
-        currency: 'jpy',
-        description: "お品代",
+    // var params = {
+    //     customer: req.body.customer,
+    //     amount: 1500,
+    //     currency: 'jpy',
+    //     description: "お品代",
 
-    };
+    // };
     
-    stripe.invoiceItems.create(params, function(err,invoiceItem){
-        console.log(invoiceItem);
-    });
-    var params2 = {
-        customer: req.body.customer,
-        tax_percent: 8.0
-    };
+    // stripe.invoiceItems.create(params, function(err,invoiceItem){
+    //     console.log(invoiceItem);
+    // });
+    // var params2 = {
+    //     customer: req.body.customer,
+    //     tax_percent: 8.0
+    // };
     
-    stripe.invoices.create(params2, function(err,invoice){
-        console.log(invoice);
-        if (!err) {
-            stripe.invoices.pay(invoice.id, function(err,invoice){
-                console.log(invoice);
-            });
-        }
-    });
-    // console.log("stripe.charges.create");
-    
-    // stripe.charges.create({
-    //     amount: 2000,
-    //     currency: "jpy",
-    //     description: "お品代として",
-    //     receipt_email :req.body.email,
-    //     customer:req.body.customer,
-    //     capture: "true"//即時徴収
-    //   }, function(err, charge) {
-    //     console.log("徴収成功");
+    // stripe.invoices.create(params2, function(err,invoice){
+    //     console.log(invoice);
+    //     if (!err) {
+    //         stripe.invoices.pay(invoice.id, function(err,invoice){
+    //             console.log(invoice);
+    //         });
+    //     }
+    // });
+    console.log("stripe.charges.create");
+
+    stripe.charges.create({
+        amount: 2000,
+        currency: "jpy",
+        description: "お品代として",
+        receipt_email :req.body.email,
+        customer:req.body.customer,
+        capture: "true"//即時徴収
+      }, function(err, charge) {
+        console.log("徴収成功");
         
-    //     console.log("charge:");
-    //     console.log(charge);
-    //     console.log("err:");
-    //     console.log(err);
-    //   });
+        console.log("charge:");
+        console.log(charge);
+        console.log("err:");
+        console.log(err);
+      });
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
