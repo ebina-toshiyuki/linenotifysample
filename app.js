@@ -172,7 +172,7 @@ app.post('/invoice',function(req, res){
         customer: req.body.customer,
         amount: 1500,
         currency: 'jpy',
-        description: "お品代",
+        description: "お品代"
 
     };
 
@@ -181,32 +181,34 @@ app.post('/invoice',function(req, res){
         customer: req.body.customer,
         amount: -500,
         currency: 'jpy',
-        description: "紹介割引",
-        invoice:""
+        description: "紹介割引"
       
     };
     stripe.invoiceItems.create(params, function(err,invoiceItem){
         console.log(invoiceItem);
         paramsdis.invoice = invoiceItem.id;
-    });
-    
-    stripe.invoiceItems.create(paramsdis, function(err,invoiceItem){
-        console.log(invoiceItem);
-    });
-    var params2 = {
-        customer: req.body.customer,
-        tax_percent: 8.0　//消費税
-    };
-    
-    stripe.invoices.create(params2, function(err,invoice){
-        console.log(invoice);
-        if (!err) {
-            stripe.invoices.pay(invoice.id, function(err,invoice){
+        stripe.invoiceItems.create(paramsdis, function(err,invoiceItem){
+            console.log(invoiceItem);
+            var params2 = {
+                customer: req.body.customer,
+                tax_percent: 8.0　//消費税
+            };
+            
+            stripe.invoices.create(params2, function(err,invoice){
                 console.log(invoice);
+                if (!err) {
+                    stripe.invoices.pay(invoice.id, function(err,invoice){
+                        console.log(invoice);
+                    });
+                }
             });
-        }
+        });
+
     });
-    console.log("stripe.charges.create");
+    
+    
+    
+    //console.log("stripe.charges.create");
 
     // 徴収　単純に一つの金額を決済する場合はこっちでよい
     // const charge = stripe.charges.create({
