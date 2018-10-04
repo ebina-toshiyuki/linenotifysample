@@ -108,7 +108,7 @@ app.post('/sendline',function(req, res){
 
 /** stripe---------------------------------------------------------- */
 var stripe = require('stripe')("sk_test_z5wdYYDUsr9O5gcF7Iw12xGl");
-var userData = {acountid: "123123123", email: ''};
+var userData = {acountid: "123123123"};
 var cardParams = {
     card: {
         exp_month: 10,
@@ -138,7 +138,6 @@ app.post('/stripeCreateCus',function(req, res){
         email: req.body.email,
         description:"acountid:" + userData.acountid
     };
-    userData.email = req.body.email;
 
     stripe.customers.create(params, function(err,customer){
         if(err != null){
@@ -162,42 +161,39 @@ app.post('/stripeCreateCus',function(req, res){
 
 
 app.post('/invoice',function(req, res){
-    stripeData.id = req.body.customer   ;
-    var params = {
-        customer: stripeData.id,
-        amount: 1500,
-        currency: 'jpy',
-        description: "お品代",
+    // stripeData.id = req.body.customer   ;
+    // var params = {
+    //     customer: stripeData.id,
+    //     amount: 1500,
+    //     currency: 'jpy',
+    //     description: "お品代",
 
-    };
+    // };
     
-    stripe.invoiceItems.create(params, function(err,invoiceItem){
-        console.log(invoiceItem);
-    });
-    var params2 = {
-        customer: stripeData.id,
-        tax_percent: 8.0
-    };
+    // stripe.invoiceItems.create(params, function(err,invoiceItem){
+    //     console.log(invoiceItem);
+    // });
+    // var params2 = {
+    //     customer: stripeData.id,
+    //     tax_percent: 8.0
+    // };
     
-    stripe.invoices.create(params2, function(err,invoice){
-        console.log(invoice);
-        if (!err) {
-            stripe.invoices.pay(invoice.id, function(err,invoice){
-                console.log(invoice);
-            });
-        }
-    });
+    // stripe.invoices.create(params2, function(err,invoice){
+    //     console.log(invoice);
+    //     if (!err) {
+    //         stripe.invoices.pay(invoice.id, function(err,invoice){
+    //             console.log(invoice);
+    //         });
+    //     }
+    // });
     console.log("stripe.charges.create");
-    console.log("userData.email:"+userData.email);
-    console.log("stripeData.id:"+stripeData.id);
-
     
     stripe.charges.create({
         amount: 2000,
         currency: "jpy",
         description: "お品代として",
-        receipt_email :userData.email,
-        customer:stripeData.id,
+        receipt_email :req.body.email,
+        customer:req.body.customer,
         capture: "true"//即時徴収
       }, function(err, charge) {
         console.log("徴収成功");

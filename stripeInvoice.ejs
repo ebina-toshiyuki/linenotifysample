@@ -18,7 +18,8 @@
             var xhr = new XMLHttpRequest();
             xhr.open("post", "invoice");
             xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-            xhr.send("customer="+document.getElementById("customer").value);
+            var mail = document.getElementById("email").value;
+            xhr.send("customer="+document.getElementById("customer").value+"&email="+mail);
             xhr.onreadystatechange = function() {
               
             }
