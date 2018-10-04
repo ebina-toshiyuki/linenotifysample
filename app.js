@@ -188,7 +188,7 @@ app.post('/invoice',function(req, res){
         currency: "jpy",
         description: "お品代として",
         receipt_email :userData.email,
-        customer
+        customer：stripeData.id
       }, function(err, charge) {
         stripe.charges.capture(charge.id, function(err, charge) {
             // asynchronously called
