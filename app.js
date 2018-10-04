@@ -162,6 +162,7 @@ app.post('/stripeCreateCus',function(req, res){
 
 
 app.post('/invoice',function(req, res){
+    stripeData.id = req.body.customer;
     var params = {
         customer: stripeData.id,
         amount: 1500,
