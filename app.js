@@ -181,12 +181,13 @@ app.post('/invoice',function(req, res){
         customer: req.body.customer,
         amount: -500,
         currency: 'jpy',
-        description: "紹介割引"
+        description: "紹介割引",
+        invoice:""
       
     };
     stripe.invoiceItems.create(params, function(err,invoiceItem){
         console.log(invoiceItem);
-        paramsdis.push("invoice",invoiceItem.id);
+        paramsdis.invoice = invoiceItem.id;
     });
     
     stripe.invoiceItems.create(paramsdis, function(err,invoiceItem){
