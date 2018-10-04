@@ -176,7 +176,7 @@ app.post('/invoice',function(req, res){
 
     };
     //割引
-    var params = {
+    var paramsdis = {
         customer: req.body.customer,
         amount: 500,
         currency: 'jpy',
@@ -186,6 +186,9 @@ app.post('/invoice',function(req, res){
     };
     
     stripe.invoiceItems.create(params, function(err,invoiceItem){
+        console.log(invoiceItem);
+    });
+    stripe.invoiceItems.create(paramsdis, function(err,invoiceItem){
         console.log(invoiceItem);
     });
     var params2 = {
