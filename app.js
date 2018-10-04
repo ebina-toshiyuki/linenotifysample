@@ -108,7 +108,7 @@ app.post('/sendline',function(req, res){
 
 /** stripe---------------------------------------------------------- */
 var stripe = require('stripe')("sk_test_z5wdYYDUsr9O5gcF7Iw12xGl");
-var userData = {acountid: "123123123", email: 'ebina2@holyday.co.jp'};
+var userData = {acountid: "123123123", email: ''};
 var cardParams = {
     card: {
         exp_month: 10,
@@ -138,6 +138,7 @@ app.post('/stripeCreateCus',function(req, res){
         email: req.body.email,
         description:"acountid:" + userData.acountid
     };
+    userData.email = req.body.email;
 
     stripe.customers.create(params, function(err,customer){
         if(err != null){
@@ -185,10 +186,13 @@ app.post('/invoice',function(req, res){
     stripe.charges.create({
         amount: 2000,
         currency: "jpy",
-        source: "tok_visa", // obtained with Stripe.js
-        description: "Charge for jenny.rosen@example.com"
+        description: "お品代として",
+        receipt_email :userData.email,
+        customer
       }, function(err, charge) {
-        // asynchronously called
+        stripe.charges.capture(charge.id, function(err, charge) {
+            // asynchronously called
+          });
       });
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
