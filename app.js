@@ -194,7 +194,7 @@ app.post('/invoice',function(req, res){
         description: "お品代として",
         receipt_email :userData.email,
         customer:stripeData.id,
-        captured: "true"//即時徴収
+        capture: "true"//即時徴収
       }, function(err, charge) {
         console.log("徴収成功");
         console.log("charge:"+charge);
