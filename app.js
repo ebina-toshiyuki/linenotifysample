@@ -178,7 +178,7 @@ app.post('/invoice',function(req, res){
     //割引
     var paramsdis = {
         customer: req.body.customer,
-        amount: 500,
+        amount: -500,
         currency: 'jpy',
         description: "紹介割引",
         discountable: "true"
