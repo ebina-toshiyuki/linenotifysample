@@ -182,14 +182,15 @@ app.post('/invoice',function(req, res){
             });
         }
     });
-
+    console.log("stripe.charges.create");
     stripe.charges.create({
         amount: 2000,
         currency: "jpy",
         description: "お品代として",
         receipt_email :userData.email,
-        customer：stripeData.id
+        customer:stripeData.id
       }, function(err, charge) {
+        console.log("stripe.charges.capture");
         stripe.charges.capture(charge.id, function(err, charge) {
             // asynchronously called
           });
