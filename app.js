@@ -188,7 +188,7 @@ app.post('/invoice',function(req, res){
     // });
     console.log("stripe.charges.create");
 
-    stripe.charges.create({
+    const charge = stripe.charges.create({
         amount: 2000,
         currency: "jpy",
         description: "お品代として",
@@ -203,6 +203,7 @@ app.post('/invoice',function(req, res){
         console.log("err:");
         console.log(err);
       });
+      console.log(charge);
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
