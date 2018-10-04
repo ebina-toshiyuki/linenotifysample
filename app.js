@@ -181,7 +181,7 @@ app.post('/invoice',function(req, res){
         amount: 500,
         currency: 'jpy',
         description: "紹介割引",
-        discountable: true
+        discountable: "true"
 
     };
     
