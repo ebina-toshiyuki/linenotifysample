@@ -204,6 +204,7 @@ app.post('/invoice',function(req, res){
         console.log(err);
       });
       console.log(charge);
+
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
