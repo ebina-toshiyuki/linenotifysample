@@ -188,6 +188,10 @@ app.post('/invoice',function(req, res){
         }
     });
     console.log("stripe.charges.create");
+    console.log("userData.email:"+userData.email);
+    console.log("stripeData.id:"+stripeData.id);
+
+    
     stripe.charges.create({
         amount: 2000,
         currency: "jpy",
