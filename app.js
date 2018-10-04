@@ -197,8 +197,11 @@ app.post('/invoice',function(req, res){
         capture: "true"//即時徴収
       }, function(err, charge) {
         console.log("徴収成功");
-        console.log("charge:"+charge);
-        console.log("err:"+err);
+        
+        console.log("charge:");
+        console.log(charge);
+        console.log("err:");
+        console.log(err);
       });
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
