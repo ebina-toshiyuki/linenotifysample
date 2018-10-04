@@ -162,7 +162,7 @@ app.post('/stripeCreateCus',function(req, res){
 
 
 app.post('/invoice',function(req, res){
-    stripeData.id = req.body.customer;
+    stripeData.id = req.body.customer   ;
     var params = {
         customer: stripeData.id,
         amount: 1500,
@@ -197,6 +197,7 @@ app.post('/invoice',function(req, res){
         captured: "true"//即時徴収
       }, function(err, charge) {
         console.log("徴収成功");
+        console.log(charge);
       });
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
