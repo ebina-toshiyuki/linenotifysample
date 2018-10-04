@@ -162,11 +162,26 @@ app.post('/stripeCreateCus',function(req, res){
 
 app.post('/invoice',function(req, res){
 
+    /**　https://dashboard.stripe.com/account
+     * 　メール設定しておけばメールで領収書が送られる。
+     * 　メールの領収書にPDFダウンロードのリンクもあり
+     * 
+    */
+    // 請求書　割引とか税金を別途請求する場合は、こっちのほうがよい
     var params = {
         customer: req.body.customer,
         amount: 1500,
         currency: 'jpy',
         description: "お品代",
+
+    };
+    //割引
+    var params = {
+        customer: req.body.customer,
+        amount: 500,
+        currency: 'jpy',
+        discountable: 'true',
+        description: "紹介割引"
 
     };
     
@@ -175,7 +190,7 @@ app.post('/invoice',function(req, res){
     });
     var params2 = {
         customer: req.body.customer,
-        tax_percent: 8.0
+        tax_percent: 8.0　//消費税
     };
     
     stripe.invoices.create(params2, function(err,invoice){
@@ -188,21 +203,22 @@ app.post('/invoice',function(req, res){
     });
     console.log("stripe.charges.create");
 
-    const charge = stripe.charges.create({
-        amount: 2000,
-        currency: "jpy",
-        description: "お品代として",
-        receipt_email :req.body.email,
-        customer:req.body.customer,
-        capture: "true"//即時徴収
-      }, function(err, charge) {
-        console.log("徴収成功");
+    // 徴収　単純に一つの金額を決済する場合はこっちでよい
+    // const charge = stripe.charges.create({
+    //     amount: 2000,
+    //     currency: "jpy",
+    //     description: "お品代として",
+    //     receipt_email :req.body.email,
+    //     customer:req.body.customer,
+    //     capture: "true"//即時徴収
+    //   }, function(err, charge) {
+    //     console.log("徴収成功");
         
-        console.log("charge:");
-        console.log(charge);
-        console.log("err:");
-        console.log(err);
-      });
+    //     console.log("charge:");
+    //     console.log(charge);
+    //     console.log("err:");
+    //     console.log(err);
+    //   });
 
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
