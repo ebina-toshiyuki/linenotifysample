@@ -186,7 +186,6 @@ app.post('/invoice',function(req, res){
     };
     stripe.invoiceItems.create(params, function(err,invoiceItem){
         console.log(invoiceItem);
-        paramsdis.invoice = invoiceItem.id;
         stripe.invoiceItems.create(paramsdis, function(err,invoiceItem){
             console.log(invoiceItem);
             var params2 = {
