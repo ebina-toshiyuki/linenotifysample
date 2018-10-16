@@ -275,19 +275,12 @@ app.get('/schedule',function(req, res){
 
     var schedule = require('node-schedule');
     console.log(Date.now() );
-    var startTime = new Date(Date.now() + 5000);
-    var job = schedule.scheduleJob(startTime, "testjob" , function () {
+    var startTime = new Date(Date.now() + 10000);
+    var job = schedule.scheduleJob(startTime,  function () {
+        console.log(Date.now() );
         console.log("登録されたジョブの実行");
       });
-    job.on("scheduled", function () {
-    console.log(this.name + "の予定が登録されました");
-    });
-    job.on("run", function () {
-    console.log(this.name + "の予定が実行されました");
-    });
-    job.on("canceled", function () {
-    console.log(this.name + "の予定がキャンセルされました");
-    });
+    
 });
 
 http.listen(POST, function() {
