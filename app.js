@@ -288,6 +288,7 @@ app.get('/schedule1',function(req, res){
 var job2;
 app.get('/schedule2_start',function(req, res){
 
+    // 30毎に実行
       job2 = schedule.scheduleJob({
         second:30
       }, function () {
