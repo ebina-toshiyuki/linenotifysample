@@ -271,15 +271,34 @@ function chgCard(){
     //stripe.customers.createSource(.....
 }
 /** stripe---------------------------------------------------------- */
-app.get('/schedule',function(req, res){
 
-    var schedule = require('node-schedule');
-    console.log(Date.now() );
+/** */
+var schedule = require('node-schedule');
+app.get('/schedule1',function(req, res){
+
+     console.log(Date.now() );
+    // 10秒後に実行　10000ミリ秒
     var startTime = new Date(Date.now() + 10000);
     var job = schedule.scheduleJob(startTime,  function () {
         console.log(Date.now() );
-        console.log("登録されたジョブの実行");
+        console.log("schedule1の実行");
       });
+    
+});
+var job2;
+app.get('/schedule2_start',function(req, res){
+
+      job2 = schedule.scheduleJob({
+        second:30
+      }, function () {
+        console.log("schedule2実行:"+Date.now() );
+      });
+    
+});
+app.get('/schedule2_stop',function(req, res){
+
+    job2.cancel();
+    console.log("schedule2停止");
     
 });
 
