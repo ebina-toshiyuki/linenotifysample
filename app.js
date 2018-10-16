@@ -288,7 +288,7 @@ app.get('/schedule',function(req, res){
     job.on("canceled", function () {
     console.log(this.name + "の予定がキャンセルされました");
     });
-}
+});
 
 http.listen(POST, function() {
 	console.log('接続開始：', POST);
