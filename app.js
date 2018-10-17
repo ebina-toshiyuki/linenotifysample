@@ -291,7 +291,7 @@ app.get('/schedule1',function(req, res){
 
 var jobarry = new Array(10);
 app.get('/schedule2_start',function(req, res){
-
+    var url = require('url'),
     var url_parts = url.parse(req.url,true);
     var repJson = url_parts.query;
     var index = Number(repJson.id);
@@ -311,14 +311,14 @@ app.get('/schedule2_start',function(req, res){
     res.end();
 });
 app.get('/schedule2_stop',function(req, res){
-
+    var url = require('url'),
     var url_parts = url.parse(req.url,true);
     var repJson = url_parts.query;
     var index = Number(repJson.id);
 
     jobarry[index].cancel();
     console.log("schedule["+index+"]停止");
-    
+
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
