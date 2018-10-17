@@ -291,7 +291,7 @@ app.get('/schedule1',function(req, res){
 
 var jobarry = new Array(10);
 app.get('/schedule2_start',function(req, res){
-    var url = require('url'),
+    var url = require('url');
     var url_parts = url.parse(req.url,true);
     var repJson = url_parts.query;
     var index = Number(repJson.id);
@@ -311,7 +311,7 @@ app.get('/schedule2_start',function(req, res){
     res.end();
 });
 app.get('/schedule2_stop',function(req, res){
-    var url = require('url'),
+    var url = require('url');
     var url_parts = url.parse(req.url,true);
     var repJson = url_parts.query;
     var index = Number(repJson.id);
