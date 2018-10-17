@@ -276,30 +276,39 @@ function chgCard(){
 var schedule = require('node-schedule');
 app.get('/schedule1',function(req, res){
 
-     console.log(Date.now() );
+     console.log("登録" + Date.now().toFormat('YYYY/MM/DD HH24:MI:SS') );
     // 10秒後に実行　10000ミリ秒
     var startTime = new Date(Date.now() + 10000);
     var job = schedule.scheduleJob(startTime,  function () {
-        console.log(Date.now() );
+        console.log(Date.now().toFormat('YYYY/MM/DD HH24:MI:SS') );
         console.log("schedule1の実行");
       });
     
 });
-var job2;
+var jobarry[]; 
 app.get('/schedule2_start',function(req, res){
 
+
+    var url_parts = url.parse(req.url,true);
+    var repJson = url_parts.query;
+    var index = Number(repJson.id);
+
     // 30毎に実行
-      job2 = schedule.scheduleJob({
+    jobarry[index] = schedule.scheduleJob({
         second:30
       }, function () {
-        console.log("schedule2実行:"+Date.now() );
+        console.log("schedule["+index+"]実行:"+Date.now().toFormat('YYYY/MM/DD HH24:MI:SS') );
       });
     
 });
 app.get('/schedule2_stop',function(req, res){
 
-    job2.cancel();
-    console.log("schedule2停止");
+    var url_parts = url.parse(req.url,true);
+    var repJson = url_parts.query;
+    var index = Number(repJson.id);
+
+    jobarry[index].cancel();
+    console.log("schedule["+index+"]停止");
     
 });
 
