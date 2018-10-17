@@ -285,7 +285,8 @@ app.get('/schedule1',function(req, res){
       });
     
 });
-var jobarry[]; 
+
+var jobarry = new Array(10);
 app.get('/schedule2_start',function(req, res){
 
 
