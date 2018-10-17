@@ -274,8 +274,9 @@ function chgCard(){
 
 /** */
 var schedule = require('node-schedule');
+require('date-utils');
 app.get('/schedule1',function(req, res){
-
+    
      console.log("登録" + Date.now().toFormat('YYYY/MM/DD HH24:MI:SS') );
     // 10秒後に実行　10000ミリ秒
     var startTime = new Date(Date.now() + 10000);
