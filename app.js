@@ -285,7 +285,8 @@ app.get('/schedule1',function(req, res){
         console.log(dateformat(now, 'yyyy/mm/dd HH:MM:ss') );
         console.log("schedule1の実行");
       });
-    
+      res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+      res.end();
 });
 
 var jobarry = new Array(10);
@@ -301,11 +302,13 @@ app.get('/schedule2_start',function(req, res){
     // 30毎に実行
     jobarry[index] = schedule.scheduleJob({
         second:30
-      }, function () {
-        var now = Date.now();
-        console.log("schedule["+index+"]実行:"+dateformat(now, 'yyyy/mm/dd HH:MM:ss'));
-      });
-    
+    }, function () {
+    var now = Date.now();
+    console.log("schedule["+index+"]実行:"+dateformat(now, 'yyyy/mm/dd HH:MM:ss'));
+    });
+
+    res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+    res.end();
 });
 app.get('/schedule2_stop',function(req, res){
 
@@ -316,6 +319,8 @@ app.get('/schedule2_stop',function(req, res){
     jobarry[index].cancel();
     console.log("schedule["+index+"]停止");
     
+    res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+    res.end();
 });
 
 http.listen(POST, function() {
