@@ -290,6 +290,10 @@ app.get('/schedule1',function(req, res){
 });
 
 var jobarry = new Array(10);
+/**
+ * https://tenaga.herokuapp.com/schedule2_start?id=1
+ * https://tenaga.herokuapp.com/schedule2_start?id=2　　　
+*/
 app.get('/schedule2_start',function(req, res){
     var url = require('url');
     var url_parts = url.parse(req.url,true);
@@ -299,7 +303,7 @@ app.get('/schedule2_start',function(req, res){
     var now = Date.now();
     console.log("schedule["+index+"]登録:"+dateformat(now, 'yyyy/mm/dd HH:MM:ss'));
 
-    // 30毎に実行
+    // 毎分30秒に実行
     jobarry[index] = schedule.scheduleJob({
         second:30
     }, function () {
@@ -310,6 +314,11 @@ app.get('/schedule2_start',function(req, res){
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
+
+/**
+ * https://tenaga.herokuapp.com/schedule2_stop?id=1
+ * https://tenaga.herokuapp.com/schedule2_stop?id=2　　　
+*/
 app.get('/schedule2_stop',function(req, res){
     var url = require('url');
     var url_parts = url.parse(req.url,true);
