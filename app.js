@@ -288,7 +288,7 @@ app.get('/schedule1',function(req, res){
 
       for(var job in schedule.scheduledJobs){
         console.log("ジョブ");
-        console.log(job);
+        console.log(job.listeners);
     }
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
