@@ -277,7 +277,7 @@ var schedule = require('node-schedule');
 var dateformat = require('dateformat');
 app.get('/schedule1',function(req, res){
     var now = Date.now();
-     console.log("登録" + dateformat(now, 'yyyy/mm/dd HH:MM:ss') );
+    console.log("登録" + dateformat(now, 'yyyy/mm/dd HH:MM:ss') );
     // 10秒後に実行　10000ミリ秒
     var startTime = new Date(Date.now() + 10000);
     var job = schedule.scheduleJob(startTime,  function () {
@@ -285,8 +285,10 @@ app.get('/schedule1',function(req, res){
         console.log(dateformat(now, 'yyyy/mm/dd HH:MM:ss') );
         console.log("schedule1の実行");
       });
-      res.header(200,'Content-Type', 'text/plain;charset=utf-8');
-      res.end();
+
+      console.log(schedule);
+    res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+    res.end();
 });
 
 var jobarry = new Array(10);
@@ -302,13 +304,13 @@ app.get('/schedule2_start',function(req, res){
     
     var now = Date.now();
     console.log("schedule["+index+"]登録:"+dateformat(now, 'yyyy/mm/dd HH:MM:ss'));
-
+    
     // 毎分30秒に実行
     jobarry[index] = schedule.scheduleJob({
         second:30
     }, function () {
-    var now = Date.now();
-    console.log("schedule["+index+"]実行:"+dateformat(now, 'yyyy/mm/dd HH:MM:ss'));
+        var now = Date.now();
+        console.log("schedule["+index+"]実行:"+dateformat(now, 'yyyy/mm/dd HH:MM:ss'));
     });
 
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
