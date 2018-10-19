@@ -286,7 +286,10 @@ app.get('/schedule1',function(req, res){
         console.log("schedule1の実行");
       });
 
-      console.log(schedule.scheduledJobs);
+      for(var job in schedule.scheduledJobs){
+        console.log("ジョブ");
+        console.log(job);
+    }
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
