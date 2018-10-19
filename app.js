@@ -286,7 +286,7 @@ app.get('/schedule1',function(req, res){
         console.log("schedule1の実行");
       });
 
-      console.log(schedule);
+      console.log(schedule.scheduledJobs);
     res.header(200,'Content-Type', 'text/plain;charset=utf-8');
     res.end();
 });
