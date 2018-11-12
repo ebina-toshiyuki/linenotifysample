@@ -346,14 +346,13 @@ app.post('/s3',function(req, res){
     var fs  = require('fs');
 
     AWS.config.loadFromPath('./rootkey.json');
-    //AWS.config.update({region: Regions.p'アジアパシフィック (東京)'});
-
+  
     var s3 = new AWS.S3();
     var params = {
     Bucket: "connect-base-dev",
     Key: "test1.jpg"
     };
-
+    console.log(req.body.selectImage);
     
     //selectImage
     //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
