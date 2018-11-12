@@ -352,13 +352,16 @@ app.post('/s3',function(req, res){
     Bucket: "connect-base-dev",
     Key: "test1.jpg"
     };
-    console.log(req.body);
-    console.log(req.body.selectImage);
+    
     
     req.on('end', () => {
         //selectImage
         //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
         params.Body=req.body.selectImage;
+        console.log(req.body);
+        console.log(req.body.selectImage);
+        console.log(req.rawBody);
+        
         s3.putObject(params, function(err, data) {
         if (err) console.log(err, err.stack);
         else     console.log(data);
