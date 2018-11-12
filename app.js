@@ -348,9 +348,11 @@ app.post('/s3',function(req, res){
     AWS.config.loadFromPath('./rootkey.json');
   
     var s3 = new AWS.S3();
+    var now2 = (new Date).getTime();
+    
     var params = {
     Bucket: "connect-base-dev",
-    Key: "test1.jpg"
+    Key: now2+".jpg"
     };
     let buffers = [];
     let cnt = 0;
@@ -368,7 +370,7 @@ app.post('/s3',function(req, res){
         //selectImage
         //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
         req.rawBody = Buffer.concat(buffers);
-        params.Body=req.body.selectImage;
+        params.Body=req.rawBody;
         console.log(req.body);
         console.log(req.body.selectImage);
         console.log(req.rawBody);
