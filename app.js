@@ -352,7 +352,9 @@ app.post('/s3',function(req, res){
     Bucket: "connect-base-dev",
     Key: "test1.jpg"
     };
+    console.log(req.body);
     console.log(req.body.selectImage);
+    
     
     //selectImage
     //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
