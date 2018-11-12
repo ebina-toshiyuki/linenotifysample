@@ -356,12 +356,15 @@ app.post('/s3',function(req, res){
     let cnt = 0;
 
     req.on('data', (chunk) => {
+        console.log("s3-2");
         buffers.push(chunk);
         console.log(++cnt);
     });
 
     
     req.on('end', () => {
+        
+        console.log("s3-3");
         //selectImage
         //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
         req.rawBody = Buffer.concat(buffers);
@@ -377,6 +380,8 @@ app.post('/s3',function(req, res){
         res.header(200,'Content-Type', 'text/plain;charset=utf-8');
         res.end();
     });
+    
+    console.log("s3-4");
 });
 
 http.listen(POST, function() {
