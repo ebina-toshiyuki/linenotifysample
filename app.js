@@ -378,14 +378,14 @@ app.post('/s3',function(req, res){
         const encodedData = Buffer.concat(buffers);
  
         // Buffer
-        const fileData = encodedData.replace(/^data:\w+\/\w+;base64,/, '')
-        const decodedFile = new Buffer(fileData, 'base64')
+        const fileData = encodedData.replace(/^data:\w+\/\w+;base64,/, '');
+        const decodedFile = new Buffer(fileData, 'base64');
          
         // ファイルの拡張子(png)
-        const fileExtension = encodedData.toString().slice(encodedData.indexOf('/') + 1, encodedData.indexOf(';'))
+        const fileExtension = encodedData.toString().slice(encodedData.indexOf('/') + 1, encodedData.indexOf(';'));
          
         // ContentType(image/png)
-        const contentType = encodedData.toString().slice(encodedData.indexOf(':') + 1, encodedData.indexOf(';'))
+        const contentType = encodedData.toString().slice(encodedData.indexOf(':') + 1, encodedData.indexOf(';'));
 
         var now2 = (new Date).getTime();
 
