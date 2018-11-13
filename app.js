@@ -375,8 +375,8 @@ app.post('/s3',function(req, res){
         //var ascii       = buffer2.toString('ascii');
         //params.Body = Buffer.from(req.rawBody, 'base64');
         
-        var encodedData = Buffer.concat(buffers);
- 
+        const encodedData = Buffer.concat(buffers);
+        
         // Buffer
         var fileData = encodedData.replace(/^data:\w+\/\w+;base64,/, '');
         var decodedFile = new Buffer(fileData, 'base64');
