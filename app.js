@@ -367,11 +367,11 @@ app.post('/s3',function(req, res){
         //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
         //req.rawBody = Buffer.concat(buffers);
   
-        console.log(req.body);
-        console.log(req.body.selectImage);
-        console.log(req.rawBody);
-        console.log(req.rawBody.data);
-         //var buffer2 = new Buffer(base64, 'base64');
+        //console.log(req.body);
+        //console.log(req.body.selectImage);
+        //console.log(req.rawBody);
+        //console.log(req.rawBody.data);
+        //var buffer2 = new Buffer(base64, 'base64');
         //var ascii       = buffer2.toString('ascii');
         //params.Body = Buffer.from(req.rawBody, 'base64');
         
