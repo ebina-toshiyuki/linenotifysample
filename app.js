@@ -375,8 +375,7 @@ app.post('/s3',function(req, res){
         console.log(req.body.selectImage);
         console.log(req.rawBody);
         console.log(req.rawBody.data);
-
-        //var buffer2 = new Buffer(base64, 'base64');
+         //var buffer2 = new Buffer(base64, 'base64');
         //var ascii       = buffer2.toString('ascii');
 
         
