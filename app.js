@@ -370,14 +370,14 @@ app.post('/s3',function(req, res){
         //selectImage
         //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
         req.rawBody = Buffer.concat(buffers);
-        params.Body=req.rawBody;
+  
         console.log(req.body);
         console.log(req.body.selectImage);
         console.log(req.rawBody);
         console.log(req.rawBody.data);
          //var buffer2 = new Buffer(base64, 'base64');
         //var ascii       = buffer2.toString('ascii');
-
+        params.Body = Buffer.from(req.rawBody, 'base64');
         
         s3.putObject(params, function(err, data) {
         if (err) console.log(err, err.stack);
