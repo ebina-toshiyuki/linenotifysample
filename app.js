@@ -348,12 +348,8 @@ app.post('/s3',function(req, res){
     AWS.config.loadFromPath('./rootkey.json');
   
     var s3 = new AWS.S3();
-    var now2 = (new Date).getTime();
     
-    var params = {
-    Bucket: "connect-base-dev",
-    Key: now2+".jpg"
-    };
+
     let buffers = [];
     let cnt = 0;
 
@@ -369,7 +365,7 @@ app.post('/s3',function(req, res){
         console.log("s3-3");
         //selectImage
         //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
-        req.rawBody = Buffer.concat(buffers);
+        //req.rawBody = Buffer.concat(buffers);
   
         console.log(req.body);
         console.log(req.body.selectImage);
@@ -377,8 +373,29 @@ app.post('/s3',function(req, res){
         console.log(req.rawBody.data);
          //var buffer2 = new Buffer(base64, 'base64');
         //var ascii       = buffer2.toString('ascii');
-        params.Body = Buffer.from(req.rawBody, 'base64');
+        //params.Body = Buffer.from(req.rawBody, 'base64');
         
+        const encodedData = Buffer.concat(buffers);
+ 
+        // Buffer
+        const fileData = encodedData.replace(/^data:\w+\/\w+;base64,/, '')
+        const decodedFile = new Buffer(fileData, 'base64')
+         
+        // ファイルの拡張子(png)
+        const fileExtension = encodedData.toString().slice(encodedData.indexOf('/') + 1, encodedData.indexOf(';'))
+         
+        // ContentType(image/png)
+        const contentType = encodedData.toString().slice(encodedData.indexOf(':') + 1, encodedData.indexOf(';'))
+
+        var now2 = (new Date).getTime();
+
+        const params = {
+          Body: decodedFile,
+          Bucket: 'connect-base-dev',
+          Key: [ now2 + fileExtension].join('.'),
+          ContentType: contentType
+        }
+
         s3.putObject(params, function(err, data) {
         if (err) console.log(err, err.stack);
         else     console.log(data);
