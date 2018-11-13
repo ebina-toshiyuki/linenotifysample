@@ -392,7 +392,7 @@ app.post('/s3',function(req, res){
         var params = {
           Body: decodedFile,
           Bucket: 'connect-base-dev',
-          Key: [ now2 + fileExtension].join('.'),
+          Key: [ now2 , fileExtension].join('.'),
           ContentType: contentType
         }
 
