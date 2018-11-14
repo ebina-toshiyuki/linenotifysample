@@ -345,7 +345,7 @@ app.post('/s3',function(req, res){
     var AWS = require('aws-sdk');
     var fs  = require('fs');
 
-    AWS.config.loadFromPath('./rootkey.json');
+    AWS.config.loadFromPath('./test.json');
   
     var s3 = new AWS.S3();
     let buffers = [];
