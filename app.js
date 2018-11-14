@@ -348,63 +348,50 @@ app.post('/s3',function(req, res){
     AWS.config.loadFromPath('./rootkey.json');
   
     var s3 = new AWS.S3();
-    
-
     let buffers = [];
     let cnt = 0;
 
+    // データ受信
     req.on('data', (chunk) => {
-        console.log("s3-2");
         buffers.push(chunk);
-        console.log(++cnt);
     });
 
-    
+    //受信後にs3にアップロード
     req.on('end', () => {
-        
-        console.log("s3-3");
-        //selectImage
-        //var v= fs.readFileSync("./アップロード対象ファイル名.jpg");
-        req.rawBody = Buffer.concat(buffers);
-  
-        //console.log(req.body);
-        //console.log(req.body.selectImage);
-        //console.log(req.rawBody);
-        //console.log(req.rawBody.data);
-        //var buffer2 = new Buffer(base64, 'base64');
-        //var ascii       = buffer2.toString('ascii');
-        console.log(Buffer.concat(buffers).toString());
-        
+
+        //バッファを文字列に
         const encodedData = Buffer.concat(buffers).toString();
         
-        // Buffer
+        // Bufferデータ部切り分け
         var fileData = encodedData.replace(/^data:\w+\/\w+;base64,/, '');
         var decodedFile = new Buffer(fileData, 'base64');
          
-        // ファイルの拡張子(png)
+        // ファイルの拡張子
         var fileExtension = encodedData.toString().slice(encodedData.indexOf('/') + 1, encodedData.indexOf(';'));
          
         // ContentType(image/png)
         var contentType = encodedData.toString().slice(encodedData.indexOf(':') + 1, encodedData.indexOf(';'));
-
-        var now2 = (new Date).getTime();
-
+        var now = (new Date).getTime();
+        var filename = [ now , fileExtension].join('.');
         var params = {
           Body: decodedFile,
           Bucket: 'connect-base-dev',
-          Key: [ now2 , fileExtension].join('.'),
+          Key: filename,
           ContentType: contentType
         }
 
         s3.putObject(params, function(err, data) {
-            if (err) console.log(err, err.stack);
-            else     console.log(data);
+            if (err) {
+                res.header(400,'Content-Type', 'text/plain;charset=utf-8');
+                res.end("err");
+            }
+            else{
+                res.header(200,'Content-Type', 'text/plain;charset=utf-8');
+                res.end(filename);
+            }     
         });
-        res.header(200,'Content-Type', 'text/plain;charset=utf-8');
-        res.end();
+
     });
-    
-    console.log("s3-4");
 });
 
 http.listen(POST, function() {
