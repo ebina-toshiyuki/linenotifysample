@@ -373,6 +373,7 @@ app.post('/s3',function(req, res){
         var contentType = encodedData.toString().slice(encodedData.indexOf(':') + 1, encodedData.indexOf(';'));
         var now = (new Date).getTime();
         var filename = [ now , fileExtension].join('.');
+        filename = "ssss.txt";
         var params = {
           Body: decodedFile,
           Bucket: 'connect-base-dev',
